@@ -5,6 +5,7 @@ class MissCannibals(Problem):
         initial = (M, C, True)
         self.M = M
         self.C = C
+        self.possible_actions = ['MM', 'MC', 'CC', 'M', 'C']
 
         super().__init__(initial, goal)
 
@@ -14,7 +15,7 @@ class MissCannibals(Problem):
 
     def actions(self, state):
         valid_actions =  ['MM', 'MC', 'CC', 'M', 'C']
-        for action in ['MM', 'MC', 'CC', 'M', 'C'] :
+        for action in self.possible_actions :
             test_state = self.result(state, action)
             # Confirm Missionaries are in range
             if test_state[0] < 0 or test_state[0] > self.M :
@@ -22,14 +23,12 @@ class MissCannibals(Problem):
             # Confirm Cannibals  are in range    
             elif test_state[1] < 0 or test_state[1] > self.C : 
                 valid_actions.remove(action)
-
             # Confirm Missionaries  aren't outnumbered on left bank
             elif test_state[0] > 0 and test_state[0] < test_state[1] : 
                 valid_actions.remove(action)
             # Confirm Missionaries  aren't outnumbered on right bank
             elif self.M - test_state[0] > 0 and (self.M - test_state[0]) < (self.C - test_state[1]) :
                 valid_actions.remove(action)
-
         return valid_actions
     
 if __name__ == '__main__':
