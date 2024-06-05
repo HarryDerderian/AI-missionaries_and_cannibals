@@ -16,14 +16,18 @@ class MissCannibals(Problem):
         valid_actions =  ['MM', 'MC', 'CC', 'M', 'C']
         for action in ['MM', 'MC', 'CC', 'M', 'C'] :
             test_state = self.result(state, action)
-            if test_state[0] < 0 or test_state[0] > self.M :
+            if test_state[0] < 0 or test_state[0] > self.M : # Confirm Missionaries are in range
                 valid_actions.remove(action)
-            elif test_state[1] < 0 or test_state[1] > self.C :
+
+            elif test_state[1] < 0 or test_state[1] > self.C : # Confirm Cannibals are in range
                 valid_actions.remove(action)
-            elif self.M - test_state[0] < 0 :
-                valid_actions.remove(action)
-            elif self.C -test_state[1] < 0 :
-                valid_actions.remove(action)
+
+           # elif self.M - test_state[0] < 0 :
+            #    valid_actions.remove(action)
+            #elif self.C -test_state[1] < 0 :
+             #   valid_actions.remove(action)
+
+
             elif test_state[0] > 0 and test_state[0] < test_state[1] :
                 valid_actions.remove(action)
             elif self.M - test_state[0] > 0 and (self.M - test_state[0]) < (self.C - test_state[1]) :
@@ -33,7 +37,6 @@ class MissCannibals(Problem):
     
 if __name__ == '__main__':
     mc = MissCannibals(M=3, C=3)
-    print(mc.actions((3, 2, True))) # Test your code as you develop! This should return  ['CC', 'C', 'M']
     path = depth_first_graph_search(mc).solution()
     print(path)
     path = breadth_first_graph_search(mc).solution()
