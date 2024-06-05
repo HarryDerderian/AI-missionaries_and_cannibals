@@ -31,7 +31,7 @@ class MissCannibals(Problem):
         return valid_actions
     
 if __name__ == '__main__':
-    mc = MissCannibals(M=4, C=4)
+    mc = MissCannibals(M=3, C=3)
     path = depth_first_graph_search(mc).solution()
     print(path)
     path = breadth_first_graph_search(mc).solution()
